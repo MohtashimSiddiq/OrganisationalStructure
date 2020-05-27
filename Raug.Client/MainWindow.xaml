@@ -1,0 +1,90 @@
+﻿<Window x:Class="Ruag.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ruag.Client"
+		xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="350" Width="800" AllowsTransparency="True" WindowStyle="None" WindowState="Normal" 
+		xmlns:customControls="clr-namespace:Ruag.Client.Resources.CustomControls" DataContext="{Binding Main, Source={StaticResource Locator}}" >
+	<!--DataContext="{Binding Main, Source={StaticResource Locator}}"-->
+	<Border BorderBrush="{DynamicResource brush_Primary}" BorderThickness="2" Background="{DynamicResource brush_Background}"  >
+		<Grid MouseDown="Window_MouseDown" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType=Border,Mode=FindAncestor}}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="40" />
+				<RowDefinition Height="40" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid VerticalAlignment="Stretch" Grid.Row="0" Background="{DynamicResource brush_Primary}"  >
+				<StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" Margin="0 10 0 0">
+					<Image x:Name="imgLogo" Source="/Resources/Images/RaugLogoSmall.png" Width="48" Height="Auto"  Margin="20 0 0 0" VerticalAlignment="Center"/>
+					<TextBlock  Text="{DynamicResource ApplicationName}" Foreground="{DynamicResource brush_menuTextColor}" FontSize="{DynamicResource fnt_AppName}" 
+								VerticalAlignment="Center" Margin="20 0 0 0"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 0 0">
+					<customControls:ImageButton Width="16" Height="16" ImageHeight="10" ImageWidth="10" ImagePath="/Resources/Images/minus.png" 
+												HoverImagePath="/Resources/Images/minus.png" 
+												Margin="10 0 0 0" PathHorizontalAlignment="Center" PathVerticalAlignment="Center">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+								<cmd:EventToCommand Command="{Binding MinimizeCommand}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</customControls:ImageButton>
+					<customControls:ImageButton Width="16" ImageHeight="10" ImageWidth="10" Height="16" ImagePath="/Resources/Images/rectangle.png"
+												HoverImagePath="/Resources/Images/rectangle.png" 
+												Margin="10 0 0 0" PathHorizontalAlignment="Center" PathVerticalAlignment="Center">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+								<cmd:EventToCommand Command="{Binding MaximizeCommand}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</customControls:ImageButton>
+					<customControls:ImageButton Width="16" Height="16" ImageHeight="10" ImageWidth="10" ImagePath="/Resources/Images/close.png" 
+												HoverImagePath="/Resources/Images/close.png" 
+												Margin="10 0 10 0" PathHorizontalAlignment="Center" PathVerticalAlignment="Center">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+								<cmd:EventToCommand Command="{Binding CloseCommand}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</customControls:ImageButton>
+				</StackPanel>
+
+			</Grid>
+			<Grid Grid.Row="1" Background="{DynamicResource brush_Primary}">
+				<StackPanel Orientation="Horizontal"  HorizontalAlignment="Right"  Margin="0 0 200 0"  >
+					<customControls:MenuRadioButton Content="Home" Value="{x:Static local:Helpers.Enums.UIScreens.Home}" 
+													ForeColor="{DynamicResource brush_menuTextColor}"
+													HoverColor="{DynamicResource brush_menuTextHoverColor}"
+													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
+					
+					<customControls:MenuRadioButton Content="Roles" Value="{x:Static local:Helpers.Enums.UIScreens.Roles}"
+													ForeColor="{DynamicResource brush_menuTextColor}"
+													HoverColor="{DynamicResource brush_menuTextHoverColor}"
+													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+					
+					<customControls:MenuRadioButton Content="Employees" Value="{x:Static local:Helpers.Enums.UIScreens.Employees}"
+													ForeColor="{DynamicResource brush_menuTextColor}"
+													HoverColor="{DynamicResource brush_menuTextHoverColor}"
+													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+					
+					<customControls:MenuRadioButton Content="Settings" Value="{x:Static local:Helpers.Enums.UIScreens.Settings}"
+													ForeColor="{DynamicResource brush_menuTextColor}"
+													HoverColor="{DynamicResource brush_menuTextHoverColor}"
+													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+			</StackPanel>
+			</Grid>
+			
+			<DockPanel Grid.Row="2" HorizontalAlignment="Stretch" LastChildFill="True">
+			
+
+				<ContentControl x:Name="mainContentHolder" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{Binding MainContent}" 
+								ContentTemplateSelector="{StaticResource MainContentSelector}"/>
+			</DockPanel>
+		</Grid>
+	</Border>
+</Window>

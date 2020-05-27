@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Ruag.Client.Resources.Localization"
+					xmlns:system="clr-namespace:System;assembly=mscorlib" >
+	<system:String x:Key="ApplicationLocale">en-US</system:String>
+	<system:String x:Key="ApplicationName">Ruag SIMCO Task</system:String>
+	<system:String x:Key="txtUserName">Username</system:String>
+	<system:String x:Key="txtPassword">Password</system:String>
+	<system:String x:Key="txtSettings">Settings</system:String>
+	<system:String x:Key="txtLocale">Locale</system:String>
+	<system:String x:Key="txtTheme">Theme</system:String>
+	<system:String x:Key="txtLocaleEnglish">English</system:String>
+	<system:String x:Key="txtLocaleGerman">Deutsche</system:String>
+	<system:String x:Key="txtThemeDark">Dark</system:String>
+	<system:String x:Key="txtThemeLight">Light</system:String>
+	<system:String x:Key="txtRoles">Roles</system:String>
+	<system:String x:Key="lblRoleName">Name</system:String>
+	<system:String x:Key="lblRoleDescription">Description</system:String>
+	<system:String x:Key="dgHdrRoleName">Name</system:String>
+	<system:String x:Key="dgHdrParentRoleName">Parent role</system:String>
+	<system:String x:Key="dgHdrRoleDescription">Description</system:String>
+	<system:String x:Key="txtAddRole">Add Role</system:String>
+	<system:String x:Key="txtEditRole">Edit Role</system:String>
+	<system:String x:Key="lblParentRole">Parent Role</system:String>
+	<system:String x:Key="txtEmployees">Employees</system:String>
+	<system:String x:Key="txtAddEmployee">Add Employee</system:String>
+	<system:String x:Key="txtEditEmployee">Edit Employee</system:String>
+	
+	<!--Fonts-->
+	<system:Double x:Key="fnt_AppName">16</system:Double>
+	<system:Double x:Key="fntPageTitle">20</system:Double>
+	<system:Double x:Key="fntsection">16</system:Double>
+	<system:Double x:Key="fnt_txtBxTitle">16</system:Double>
+	<system:Double x:Key="fnt_txtBxContent">14</system:Double>
+	<system:Double x:Key="fnt_btnContent">12</system:Double>
+	<system:Double x:Key="fnt_dgHeaderText">12</system:Double>
+	<system:Double x:Key="fnt_txtRolesTitle">12</system:Double>
+</ResourceDictionary>
