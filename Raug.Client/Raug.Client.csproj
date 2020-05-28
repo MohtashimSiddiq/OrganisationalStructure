@@ -85,6 +85,7 @@
     <Compile Include="Helpers\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\StringToUriConverter.cs" />
     <Compile Include="Helpers\DataTemplateSelectors\MainContentSelector.cs" />
+    <Compile Include="Helpers\DataTemplateSelectors\MsgContentSelector.cs" />
     <Compile Include="Helpers\DataTemplateSelectors\MultiSelectDataTemplateSelector.cs" />
     <Compile Include="Helpers\Enums\eUIColor.cs" />
     <Compile Include="Helpers\Enums\eUIMode.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Helpers\GalasoftMessages.cs" />
     <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\ResourceManager.cs" />
+    <Compile Include="Helpers\Validators\RequiredValidator.cs" />
     <Compile Include="Resources\CustomControls\ImageTextButton.cs" />
     <Compile Include="Resources\CustomControls\MenuButton.cs" />
     <Compile Include="Resources\CustomControls\MultiSelect.cs" />
@@ -111,6 +113,7 @@
     </Compile>
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -193,9 +196,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\Validators\" />
     <Folder Include="Libraries\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\close.png" />

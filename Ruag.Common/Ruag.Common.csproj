@@ -48,9 +48,11 @@
     <Compile Include="ActionResult.cs" />
     <Compile Include="AppSettingKeys.cs" />
     <Compile Include="ConfigurationReader.cs" />
+    <Compile Include="Enums\eMessageBoxResult.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="AppLogger.cs" />
     <Compile Include="Enums\eLogType.cs" />
+    <Compile Include="Enums\eMessageBoxType.cs" />
     <Compile Include="Paths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -36,9 +36,9 @@ namespace Ruag.Data
                 Name = employee.Name,
                 IsDeleted = employee.IsDeleted,
                 Manager = employee.Manager != null ? CreateDTO(employee.Manager,false):null,
-                ManagerId = employee.ManagerId.Value,
+                ManagerId = employee.ManagerId != null? employee.ManagerId.Value:0,
                 RoleId = employee.RoleId.Value,
-                SubOrdinates = createChild  ? employee.SubOrdinates.ToList().Select(sub => CreateDTO(sub)).ToList():null
+                SubOrdinates = createChild && employee.SubOrdinates != null ? employee.SubOrdinates.ToList().Select(sub => CreateDTO(sub)).ToList():null
             };
         }
 
@@ -83,13 +83,13 @@ namespace Ruag.Data
             return new Employee()
             {
                 Id = employeeDTO.Id,
-                EmployeeRole = employeeDTO.EmployeeRole != null? CreateModel(employeeDTO.EmployeeRole):null,
+                EmployeeRole = employeeDTO.EmployeeRole != null ? CreateModel(employeeDTO.EmployeeRole) : null,
                 Name = employeeDTO.Name,
                 IsDeleted = employeeDTO.IsDeleted,
-                Manager = employeeDTO.Manager != null? CreateModel(employeeDTO.Manager):null,
+                Manager = employeeDTO.Manager != null ? CreateModel(employeeDTO.Manager) : null,
                 ManagerId = employeeDTO.ManagerId,
                 RoleId = employeeDTO.RoleId,
-                SubOrdinates = employeeDTO.SubOrdinates.ToList().Select(sub => CreateModel(sub)).ToList()
+                SubOrdinates = employeeDTO.SubOrdinates != null? employeeDTO.SubOrdinates.ToList().Select(sub => CreateModel(sub)).ToList():null
             };
         }
 

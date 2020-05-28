@@ -8,6 +8,7 @@ using Ruag.Common;
 using Ruag.Common.Enums;
 using Microsoft.Windows.Design.Interaction;
 using System.Threading;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Ruag.Client.ViewModel
 {
@@ -17,8 +18,13 @@ namespace Ruag.Client.ViewModel
         private eUIMode _currentUIMode;
         private eLocales _currentLocale;
 
+
+
         private UIScreens _selectedScreen;
         public ViewModelBase MainContent { get; set; }
+        public ViewModelBase MsgBxContent { get; set; }
+        public bool ShowMsgBox { get; set; }
+
         public UIScreens SelectedScreen
         {
             get { return _selectedScreen; } 
@@ -42,16 +48,42 @@ namespace Ruag.Client.ViewModel
             MainContent = new HomeViewModel();
             SelectedScreen = UIScreens.Home;
             RaisePropertyChanged("SelectedScreen");
+            ShowMsgBox = false;
+            RaisePropertyChanged("ShowMsgBox");
+
         }
 
         private void RegisterGalasoftMessageHandlers()
         {
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<LocaleMessage>(this, LocaleChangeMsgHandler);
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<UIModeMessage>(this, UIModeChangeMsgHandler);
+            Messenger.Default.Register<LocaleMessage>(this, LocaleChangeMsgHandler);
+            Messenger.Default.Register<UIModeMessage>(this, UIModeChangeMsgHandler);
+            Messenger.Default.Register<ShowMsgBxMessage>(this, ShowMessageBxMsgHandler);
+            Messenger.Default.Register<MsgBxResultMessage>(this, MsgBxResultMsgHandler);
+        }
+
+        private void MsgBxResultMsgHandler(MsgBxResultMessage obj)
+        {
+            ShowMsgBox = false;
+            RaisePropertyChanged("ShowMsgBox");
+            if (obj.Type == eMessageBoxType.Confirmation)
+            {
+                Messenger.Default.Send<MsgBxResultMessage>(obj);
+            }
+
+        }
+
+        private void ShowMessageBxMsgHandler(ShowMsgBxMessage obj)
+        {
+            //MessageBoxViewModel vm_MsgBox = new MessageBoxViewModel() { Type = obj.Type, Title = obj.Title, Text = obj.Text };
+            MsgBxContent = new MessageBoxViewModel() { Type = obj.Type, Title = obj.Title, Text = obj.Text };
+            ShowMsgBox = true;
+
+            RaisePropertyChanged("MsgBxContent");
+            RaisePropertyChanged("ShowMsgBox");
         }
 
         #region Events
-        
+
         public event EventHandler MinimizeEvent;
         public event EventHandler MaximizeEvent;
         public event EventHandler CloseEvent;
@@ -128,10 +160,14 @@ namespace Ruag.Client.ViewModel
                     SettingsViewModel Vm_Settings = new SettingsViewModel() {SelectedUIMode = _currentUIMode, SelectedLocale = _currentLocale };
                     MainContent = Vm_Settings;
                     break;
+                
             }
             RaisePropertyChanged("MainContent");
             AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
         }
+
+        
+
 
         private void CloseCommandHandler()
         {

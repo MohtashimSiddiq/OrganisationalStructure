@@ -142,7 +142,7 @@ namespace Ruag.Data.Repository
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                List<OrgRole> orgRoleList = _orgRoles.Include("ParentRole").Include("ChildRoles").ToList();
+                List<OrgRole> orgRoleList = _orgRoles.Include("ParentRole").Include("ChildRoles").OrderBy(e=>e.ParentRoleId).ToList();
                 return new ActionResult<List<OrgRoleDTO>>() { ReturnCode = eReturnCode.Success, ReturnDescription = "returning result", Result = ModelFactory.Instance.CreateDTO(orgRoleList,true) };
             }
             catch (Exception ex)

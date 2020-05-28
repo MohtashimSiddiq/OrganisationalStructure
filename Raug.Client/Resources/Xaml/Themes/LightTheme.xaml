@@ -17,6 +17,9 @@
 	<SolidColorBrush x:Key="brush_combo">#0064a7</SolidColorBrush>
 	<SolidColorBrush x:Key="brush_comboHover">#0e98da</SolidColorBrush>
 	<SolidColorBrush x:Key="brush_comboPopup">#0064a7</SolidColorBrush>
+	<SolidColorBrush x:Key="brush_infoMsgBxBackground">#213c5e</SolidColorBrush>
+	<SolidColorBrush x:Key="brush_errMsgBxBackground">#6B0101</SolidColorBrush>
+	<SolidColorBrush x:Key="brush_confirmMsgBxBackground">#2d2d30</SolidColorBrush>
 	
 	<BitmapImage x:Key="imgSettings" UriSource="/Resources/Images/Light/settings.png" ></BitmapImage>
 	<BitmapImage x:Key="imgRoles" UriSource="/Resources/Images/Light/roles.png" ></BitmapImage>

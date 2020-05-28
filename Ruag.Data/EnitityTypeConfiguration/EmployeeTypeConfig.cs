@@ -13,9 +13,10 @@ namespace Ruag.Data.EnitityTypeConfiguration
         public EmployeeTypeConfig()
         {
             this.Property<int>(e => e.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-           
             this.HasOptional<OrgRole>(e => e.EmployeeRole);
-            this.HasOptional<Employee>(e => e.Manager).WithMany(m=>m.SubOrdinates);
+            this.Ignore(p => p.Manager);
+            this.Ignore(p => p.ManagerId);
+            this.Ignore(p => p.SubOrdinates);
             this.Property(p => p.IsDeleted).IsOptional();
         }
 

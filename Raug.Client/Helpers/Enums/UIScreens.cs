@@ -13,5 +13,6 @@ namespace Ruag.Client.Helpers.Enums
         Roles,
         Employees,
         Settings,
+        MessageBox,
     }
 }

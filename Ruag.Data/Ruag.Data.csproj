@@ -104,6 +104,10 @@
     <Compile Include="Migrations\202005232320574_IntialCreate.Designer.cs">
       <DependentUpon>202005232320574_IntialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005271637254_remove-Manager.cs" />
+    <Compile Include="Migrations\202005271637254_remove-Manager.Designer.cs">
+      <DependentUpon>202005271637254_remove-Manager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelFactory.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
@@ -132,6 +136,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005232320574_IntialCreate.resx">
       <DependentUpon>202005232320574_IntialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005271637254_remove-Manager.resx">
+      <DependentUpon>202005271637254_remove-Manager.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

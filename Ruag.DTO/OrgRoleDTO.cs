@@ -70,7 +70,7 @@ namespace Ruag.DTO
                 role.ParentRole = this.ParentRole.Clone() as OrgRoleDTO;
             }
 
-            role.Description = this.Name.Clone() as string;
+            role.Description = this.Description.Clone() as string;
             if (this.ChildRoles != null)
             {
                 foreach (OrgRoleDTO childrole in this.ChildRoles)

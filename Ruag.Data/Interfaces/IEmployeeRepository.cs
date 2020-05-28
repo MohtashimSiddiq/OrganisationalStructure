@@ -18,5 +18,6 @@ namespace Ruag.Data.Interfaces
         ActionResult<EmployeeDTO> Get(int Id);
         ActionResult<EmployeeDTO> Get(string name);
         ActionResult<List<EmployeeDTO>>  GetAll();
+        ActionResult<List<EmployeeDTO>> GetAllActive();
     }
 }

@@ -21,7 +21,7 @@ namespace Ruag.Data.Repository
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             _appDBContext = dBContext;
-            employees = dBContext.Employees;
+            _employees = dBContext.Employees;
             AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
         }
         public ActionResult<EmployeeDTO> Add(EmployeeDTO empDTO)
@@ -30,7 +30,7 @@ namespace Ruag.Data.Repository
             try
             {
                 Employee empModel = ModelFactory.Instance.CreateModel(empDTO);
-                employees.Add(empModel);
+                _employees.Add(empModel);
                 _appDBContext.SaveChanges();
                 return new ActionResult<EmployeeDTO>() { ReturnCode = eReturnCode.Success, ReturnDescription = "Employee Added successfully", Result = ModelFactory.Instance.CreateDTO(empModel) };
             }
@@ -52,7 +52,7 @@ namespace Ruag.Data.Repository
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                Employee emp = employees.Where(e => e.Id == empId).FirstOrDefault();
+                Employee emp = _employees.Where(e => e.Id == empId).FirstOrDefault();
                 if (emp != null)
                 {
                     emp.IsDeleted = true;
@@ -79,7 +79,7 @@ namespace Ruag.Data.Repository
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                Employee emp = employees.Where(e => e.Id == empId).Include("EmployeeRole").Include("Manager").Include("SubOrdinates").FirstOrDefault();
+                Employee emp = _employees.Where(e => e.Id == empId).Include("EmployeeRole").Include("Manager").Include("SubOrdinates").FirstOrDefault();
                 EmployeeDTO empDTO = null;
                 if (emp != null)
                 {
@@ -104,7 +104,7 @@ namespace Ruag.Data.Repository
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                Employee emp = employees.Where(e => e.Name == name).Include("EmployeeRole").Include("Manager").Include("SubOrdinates").FirstOrDefault();
+                Employee emp = _employees.Where(e => e.Name == name).Include("EmployeeRole").Include("Manager").Include("SubOrdinates").FirstOrDefault();
                 EmployeeDTO empDTO = null;
                 if (emp != null)
                 {
@@ -129,11 +129,48 @@ namespace Ruag.Data.Repository
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                List<Employee> empList = employees.Include("EmployeeRole").ToList();
-                foreach(EmployeeDTO emp in empList)
+                List<Employee> empList = _employees.Include("EmployeeRole").Include("EmployeeRole.ParentRole").ToList();
+               
+                foreach (Employee emp in empList)
                 {
+                    var manager = empList.Where(e => e.RoleId == emp.EmployeeRole.ParentRoleId).FirstOrDefault();
+                    if (manager != null)
+                    {
+                        emp.Manager = manager;
+                        emp.ManagerId = manager.Id;
+                    }
+                    
+                }
+                return new ActionResult<List<EmployeeDTO>>() { ReturnCode = eReturnCode.Success, ReturnDescription = "returning result", Result = ModelFactory.Instance.CreateDTO(empList) };
+            }
+            catch (Exception ex)
+            {
+                AppLogger.Instance.Log(eLogType.Error, ex.ToString());
+                return new ActionResult<List<EmployeeDTO>>() { ReturnCode = eReturnCode.Failure, ReturnDescription = "returning result Error" };
+            }
+            finally
+            {
+                AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
+            }
+           
+        }
 
-                    emp.
+         public ActionResult<List<EmployeeDTO>> GetAllActive()
+        {
+            AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
+            try
+            {
+                List<Employee> empList = _employees.Where(e=>e.IsDeleted == false).Include("EmployeeRole").Include("EmployeeRole.ParentRole").ToList();
+               
+                foreach (Employee emp in empList)
+                {
+                    var manager = empList.Where(e => e.RoleId == emp.EmployeeRole.ParentRoleId).FirstOrDefault();
+                    if (manager != null)
+                    {
+                        emp.Manager = manager;
+                        emp.ManagerId = manager.Id;
+                    }
+                    
                 }
                 return new ActionResult<List<EmployeeDTO>>() { ReturnCode = eReturnCode.Success, ReturnDescription = "returning result", Result = ModelFactory.Instance.CreateDTO(empList) };
             }
@@ -154,7 +191,7 @@ namespace Ruag.Data.Repository
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                Employee emp = employees.Where(e => e.Id == empDTO.Id).FirstOrDefault();
+                Employee emp = _employees.Where(e => e.Id == empDTO.Id).FirstOrDefault();
 
                 if (emp != null)
                 {

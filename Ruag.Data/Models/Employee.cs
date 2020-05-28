@@ -22,7 +22,7 @@ namespace Ruag.Data.Models
         public OrgRole EmployeeRole { get; set; }
 
         public int? ManagerId { get; set; }
-        [ForeignKey("ManagerId")]
+      
         public virtual Employee Manager { get; set; }
         public ICollection<Employee> SubOrdinates { get; set; }
         public bool IsDeleted { get; set; }

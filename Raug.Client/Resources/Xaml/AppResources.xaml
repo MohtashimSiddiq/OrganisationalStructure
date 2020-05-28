@@ -181,6 +181,33 @@
 		</Setter>
 	</Style>
 	
+	
+	<!-- BUTTON style-->
+	<Style TargetType="Button" x:Key="btnStyle">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid>
+						<Border Name="btnBorder" Background="{TemplateBinding  Background}"/>
+						<Label Content="{TemplateBinding Content}" FontSize="{DynamicResource fnt_btnContent}"
+							   HorizontalAlignment="Center"
+							   Foreground="{TemplateBinding Foreground}" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Opacity" TargetName="btnBorder" Value="0.8"/>
+							<Setter Property="Margin" TargetName="btnBorder" Value="-2"/>
+
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Opacity" TargetName="btnBorder" Value="1"/>
+							<Setter Property="Margin" TargetName="btnBorder" Value="0"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 	<!--Data templates-->
 	<DataTemplate x:Key="TemplateSettings">
 		<userControls:UC_Settings/>
@@ -254,6 +281,97 @@
 		</Button>
 	</DataTemplate>
 
+	<DataTemplate x:Key="TemplateInfoMsgBx">
+		<Grid>
+			<Grid Background="{DynamicResource brush_Background}"  Opacity="0.9"></Grid>
+			<Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="{DynamicResource brush_infoMsgBxBackground}" Opacity="1" Height="150">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+					<TextBlock Text="{Binding Title}" Foreground="White" FontWeight="SemiBold" FontSize="{DynamicResource fnt_ErrorTitle}" Margin="0 10 0 0" HorizontalAlignment="Left"/>
+					<TextBlock Text="{Binding Text}" Foreground="White" FontSize="{DynamicResource fnt_ErrorText}" Margin="0 10 0 0" HorizontalAlignment="Stretch"/>
+					<Button Cursor="Hand" Style="{StaticResource btnStyle}" Background="White" Width="60" HorizontalAlignment="Left"
+							Margin="0 20 0 0" Content="{DynamicResource txtBtnOk}" Foreground="Black">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+								<cmd:EventToCommand Command="{Binding OkCommand}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+				</StackPanel>
+			</Grid>
+		</Grid>
+
+	</DataTemplate>
+
+	<DataTemplate x:Key="TemplateErrorMsgBx">
+		<Grid>
+			<Grid Background="{DynamicResource brush_Background}"  Opacity="0.9"></Grid>
+			<Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="{DynamicResource brush_errMsgBxBackground}" Opacity="1" Height="150">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+					<TextBlock Text="{Binding Title}" Foreground="White" FontWeight="SemiBold" FontSize="{DynamicResource fnt_ErrorTitle}" Margin="0 10 0 0" HorizontalAlignment="Left"/>
+					<TextBlock Text="{Binding Text}"  Foreground="White" FontSize="{DynamicResource fnt_ErrorText}" Margin="0 10 0 0" HorizontalAlignment="Stretch"/>
+					<Button Cursor="Hand" Style="{StaticResource btnStyle}" Background="White" Width="60"  HorizontalAlignment="Left" Margin="0 20 0 0"
+							Content="{DynamicResource txtBtnOk}" Foreground="Black">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+								<cmd:EventToCommand Command="{Binding OkCommand}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+				</StackPanel>
+			</Grid>
+		</Grid>
+
+	</DataTemplate>
+
+
+
+	<DataTemplate x:Key="TemplateConfirmMsgBx">
+		<Grid>
+			<Grid Background="{DynamicResource brush_Background}"  Opacity="0.9"></Grid>
+			<Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="{DynamicResource brush_confirmMsgBxBackground}" Opacity="1" Height="150">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+					<TextBlock Text="{Binding Title}" Foreground="White" FontWeight="SemiBold" FontSize="{DynamicResource fnt_ErrorTitle}" Margin="0 10 0 0" HorizontalAlignment="Left"/>
+					<TextBlock Text="{Binding Text}"  Foreground="White" FontSize="{DynamicResource fnt_ErrorText}" Margin="0 10 0 0" HorizontalAlignment="Stretch"/>
+					<StackPanel Orientation="Horizontal">
+						<Button Cursor="Hand" Style="{StaticResource btnStyle}" Background="#c3c6c9" Width="60"  HorizontalAlignment="Left" Margin="0 20 0 0" 
+								Content="{DynamicResource txtBtnYes}" Foreground="Black">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="Click">
+									<cmd:EventToCommand Command="{Binding YesCommand}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</Button>
+						<Button Cursor="Hand" Style="{StaticResource btnStyle}" Background="#c3c6c9" Width="60"  HorizontalAlignment="Left" Margin="20 20 0 0" 
+								Content="{DynamicResource txtBtnNo}" Foreground="Black" >
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="Click">
+									<cmd:EventToCommand Command="{Binding NoCommand}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</Button>
+
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</Grid>
+
+	</DataTemplate>
+
 	<!--Template selectors-->
 	<templateSelectors:MainContentSelector x:Key="MainContentSelector"  
 										   SettingsTemplate="{StaticResource TemplateSettings}"
@@ -264,7 +382,10 @@
 										  AddButtonTemplate ="{StaticResource MultiSelectButtonTemplate}"
 										   ItemsTemplate="{StaticResource MultiSelectItemsTemplate}"
 										  />
-	
+
+	<templateSelectors:MsgContentSelector x:Key="MsgContentSelector" InfoMsgTemplate="{StaticResource TemplateInfoMsgBx}" 
+										  ErrorTemplate="{StaticResource TemplateErrorMsgBx}" ConfirmMsgTemplate="{StaticResource TemplateConfirmMsgBx}"/>
+
 	<Style TargetType="{x:Type customControls:RoleSelector}">
 		<Setter Property="Template">
 			<Setter.Value>
@@ -291,6 +412,15 @@
 		<Setter Property="AcceptsReturn" Value="True" />
 		<Setter Property="FontWeight" Value="ExtraLight" />
 		<Setter Property="MaxLines" Value="{Binding Path=MaxLines,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+		<Setter Property="Validation.ErrorTemplate" >
+			<Setter.Value>				
+					<ControlTemplate>
+							<Border BorderBrush="Red" BorderThickness="1">
+								<AdornedElementPlaceholder x:Name="controlWithError"/>
+							</Border>
+					</ControlTemplate>				
+			</Setter.Value>
+		</Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type customControls:WatermarkTextBox}">
@@ -341,6 +471,11 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="true">
+				<Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 
 
@@ -415,9 +550,9 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type customControls:ImageTextButton}">
-					<Grid>
+					<Grid Cursor="Hand">
 						<Border Name="btnBorder" Background="{DynamicResource brush_buttonColor}"/>
-						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
 							<Label Content="{TemplateBinding ButtonText}" FontSize="{DynamicResource fnt_btnContent}" Foreground="{DynamicResource brush_buttonTextColor}" />
 							<Image Margin="5 0 5 0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{TemplateBinding ImagePath}" Width="12" Height="12" />
 						</StackPanel>
@@ -711,5 +846,43 @@
 		</Setter>
 	</Style>
 
+	<Style TargetType="DataGridRow">
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="Background" Value="White"/>
+		<Setter Property="Margin" Value="0"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Style.Triggers>
+			<Trigger Property="IsSelected" Value="True">
+				<Setter Property="Background" Value="White"/>
+				<Setter Property="Foreground" Value="Black" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+
+	<Style TargetType="DataGridCell">
+		<Setter Property="Background" Value="White"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="TextBlock.TextAlignment" Value="Center"/>
+		<Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+		<Setter Property="Selector.BorderBrush" Value="Transparent"/>
+		<Setter Property="FontWeight" Value="Normal"/>
+		<Setter Property="Selector.Background" Value="Transparent"/>
+		<Setter Property="FontSize" Value="{DynamicResource fnt_txtBxContent}"/>
+		
+		
+		<Style.Triggers>
+			<Trigger Property="IsSelected" Value="True">
+				<Setter Property="Foreground" Value="Black" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+
 	
+
+
+
+	
+
 </ResourceDictionary>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ruag.Client.Resources.UserControls"
 			 xmlns:custCtrl="clr-namespace:Ruag.Client.Resources.CustomControls"
-			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight" xmlns:validations="clr-namespace:Ruag.Client.Helpers.Validators"
 			 mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 	<Grid Background="Transparent">
@@ -27,7 +27,15 @@
 					<custCtrl:WatermarkTextBox  Margin="10 0 0 0" Watermark="{DynamicResource lblRoleName}" MaxLines="1" 
 												Text="{Binding SelectedRole.Name,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" />
 					<custCtrl:WatermarkTextBox  Margin="10 0 0 0" Watermark="{DynamicResource lblRoleDescription}" MaxLines="5" 
-												Text="{Binding SelectedRole.Description,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}"/>
+												Text="{Binding SelectedRole.Description,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}">
+						<!--<custCtrl:WatermarkTextBox.Text>
+							<Binding Path="Selected" >
+								<Binding.ValidationRules>
+									<validations:RequiredRule />
+								</Binding.ValidationRules>
+							</Binding>
+						</custCtrl:WatermarkTextBox.Text>-->
+					</custCtrl:WatermarkTextBox>
 					<TextBlock Margin="10 10 0 0" Text="{DynamicResource lblParentRole}" 
 							   Foreground="{DynamicResource brush_textColor}" FontSize="{DynamicResource fnt_txtRolesTitle}" />
 					<custCtrl:RoleSelector Margin="10 10 0 0" Source="{Binding AllRoles}" 

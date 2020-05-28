@@ -48,11 +48,11 @@ namespace Ruag_WebAPI.Controllers
 
         [HttpPost]
         [Route("Delete")]
-        public IHttpActionResult Delete(int roleId)
+        public IHttpActionResult Delete(EmployeeDTO emp)
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             iEmployeeRepository = new EmployeeRepository(this.Request.GetOwinContext().Get<AppDBContext>());
-            ActionResult<string> actionResult = iEmployeeRepository.Delete(roleId);
+            ActionResult<string> actionResult = iEmployeeRepository.Delete(emp.Id);
             AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             return Ok(actionResult);
 
@@ -84,6 +84,18 @@ namespace Ruag_WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllActive")]
+        public IHttpActionResult GetAllActive()
+        {
+            AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
+            iEmployeeRepository = new EmployeeRepository(this.Request.GetOwinContext().Get<AppDBContext>());
+            ActionResult<List<EmployeeDTO>> actionResult = iEmployeeRepository.GetAllActive();
+            AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
+            return Ok(actionResult);
+
+        }
+
+        [HttpGet]
         [Route("GetAll")]
         public IHttpActionResult GetAll()
         {
@@ -94,6 +106,7 @@ namespace Ruag_WebAPI.Controllers
             return Ok(actionResult);
 
         }
+
         [HttpGet]
         [AllowAnonymous]
         [Route("test")]

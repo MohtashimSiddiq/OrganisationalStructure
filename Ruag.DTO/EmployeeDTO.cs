@@ -63,7 +63,7 @@ namespace Ruag.DTO
 
         public EmployeeDTO()
         {
-            SubOrdinates = new List<EmployeeDTO>();
+            _subOrdinates = new List<EmployeeDTO>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

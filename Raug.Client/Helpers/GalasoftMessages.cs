@@ -1,4 +1,5 @@
 ﻿using Ruag.Client.Helpers.Enums;
+using Ruag.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,4 +22,18 @@ namespace Ruag.Client.Helpers
     {
         public eUIColor UIColor { get; set; }
     }
+
+    public class MsgBxResultMessage
+    {
+        public eMessageBoxResult Result { get; set; }
+        public eMessageBoxType Type { get; set; }
+    }
+
+    public class ShowMsgBxMessage
+    {
+        public eMessageBoxType Type { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+    }
+
 }

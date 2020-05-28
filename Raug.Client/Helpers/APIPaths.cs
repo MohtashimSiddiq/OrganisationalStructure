@@ -23,6 +23,7 @@ namespace Ruag.Client.Helpers
         public static string EmployeeGetById = "api/Employee/GetById";
         public static string EmployeeGetByName = "api/Employee/GetByName";
         public static string EmployeeGetAll = "api/Employee/GetAll";
+        public static string EmployeeGetAllActive = "api/Employee/GetAllActive";
 
     }
 }

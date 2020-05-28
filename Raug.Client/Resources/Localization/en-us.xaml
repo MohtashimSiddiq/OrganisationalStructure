@@ -8,7 +8,7 @@
 	<system:String x:Key="txtPassword">Password</system:String>
 	<system:String x:Key="txtSettings">Settings</system:String>
 	<system:String x:Key="txtLocale">Locale</system:String>
-	<system:String x:Key="txtTheme">Theme</system:String>
+	<system:String x:Key="txtTheme">Themes</system:String>
 	<system:String x:Key="txtLocaleEnglish">English</system:String>
 	<system:String x:Key="txtLocaleGerman">Deutsche</system:String>
 	<system:String x:Key="txtThemeDark">Dark</system:String>
@@ -25,7 +25,38 @@
 	<system:String x:Key="txtEmployees">Employees</system:String>
 	<system:String x:Key="txtAddEmployee">Add Employee</system:String>
 	<system:String x:Key="txtEditEmployee">Edit Employee</system:String>
+	<system:String x:Key="txtRequiredErr">Required field</system:String>
+	<system:String x:Key="txtBtnOk">Ok</system:String>
+	<system:String x:Key="txtBtnYes">Yes</system:String>
+	<system:String x:Key="txtBtnNo">No</system:String>
 	
+	<!--- Message Box strings -->
+	<system:String x:Key="txtMsgTitleSuccess">Success</system:String>
+	<system:String x:Key="txtMsgTitleError">Error</system:String>
+	<system:String x:Key="txtMsgTitleConfirm">Confirmation</system:String>
+	
+	<system:String x:Key="txtMsgTextEmpEditSuccess">Employee edited successfullly</system:String>
+	<system:String x:Key="txtMsgTextRoleEditSuccess">Role edited successfullly</system:String>
+	
+	<system:String x:Key="txtMsgTextEmpEditError">Unable to edit employee</system:String>
+	<system:String x:Key="txtMsgTextRoleEditError">Unable to edit role</system:String>
+
+
+	<system:String x:Key="txtMsgTextEmpAddSuccess">Employee added successfullly</system:String>
+	<system:String x:Key="txtMsgTextRoleAddSuccess">Role added successfullly</system:String>
+	
+	<system:String x:Key="txtMsgTextEmpAddError">Unable to add employee</system:String>
+	<system:String x:Key="txtMsgTextRoleAddError">Unable to add role</system:String>
+
+	<system:String x:Key="txtMsgTextEmpDeleteConfirm">Are you sure to delete this employee?</system:String>
+	<system:String x:Key="txtMsgTextRoleDeleteConfirm">Are you sure to delete this role?</system:String>
+
+	<system:String x:Key="txtMsgTextEmpDelSuccess">Employee deleted successfullly</system:String>
+	<system:String x:Key="txtMsgTextRoleDelSuccess">Role deleted successfullly</system:String>
+	
+	<system:String x:Key="txtMsgTextEmpDelError">Unable to delete employee</system:String>
+	<system:String x:Key="txtMsgTextRoleDelError">Unable to delete role</system:String>
+
 	<!--Fonts-->
 	<system:Double x:Key="fnt_AppName">16</system:Double>
 	<system:Double x:Key="fntPageTitle">20</system:Double>
@@ -35,4 +66,6 @@
 	<system:Double x:Key="fnt_btnContent">12</system:Double>
 	<system:Double x:Key="fnt_dgHeaderText">12</system:Double>
 	<system:Double x:Key="fnt_txtRolesTitle">12</system:Double>
+	<system:Double x:Key="fnt_ErrorTitle">18</system:Double>
+	<system:Double x:Key="fnt_ErrorText">14</system:Double>
 </ResourceDictionary>

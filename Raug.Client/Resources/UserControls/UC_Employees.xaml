@@ -109,7 +109,7 @@
 								  BorderThickness="0" 
 								  Background="Transparent">
 						<TreeView.ItemTemplate>
-							<HierarchicalDataTemplate ItemsSource="{Binding ChildRoles}">
+							<HierarchicalDataTemplate ItemsSource="{Binding SubOrdinates}">
 								<Border Background="{DynamicResource brush_Secondary}" Margin="0,2,0,0" Padding="4,2,8,2"
 												BorderBrush="DimGray" BorderThickness="1" >
 									<Grid>

@@ -11,7 +11,8 @@
         Title="MainWindow" Height="350" Width="800" AllowsTransparency="True" WindowStyle="None" WindowState="Normal" 
 		xmlns:customControls="clr-namespace:Ruag.Client.Resources.CustomControls" DataContext="{Binding Main, Source={StaticResource Locator}}" >
 	<!--DataContext="{Binding Main, Source={StaticResource Locator}}"-->
-	<Border BorderBrush="{DynamicResource brush_Primary}" BorderThickness="2" Background="{DynamicResource brush_Background}"  >
+	<Grid>
+	<Border BorderBrush="{DynamicResource brush_Primary}"  BorderThickness="2" Background="{DynamicResource brush_Background}"  >
 		<Grid MouseDown="Window_MouseDown" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType=Border,Mode=FindAncestor}}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="40" />
@@ -87,4 +88,7 @@
 			</DockPanel>
 		</Grid>
 	</Border>
+		<ContentControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{Binding MsgBxContent}" Visibility="{Binding ShowMsgBox,Converter={StaticResource BoolToVisibilityConverter}}"
+							Panel.ZIndex="2"	ContentTemplateSelector="{StaticResource MsgContentSelector}" MouseDown="Window_MouseDown"/>
+	</Grid>
 </Window>

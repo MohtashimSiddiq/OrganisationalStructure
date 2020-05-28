@@ -17,6 +17,7 @@ using Ruag.Common.Enums;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Threading;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Ruag.Client.ViewModel
 {
@@ -40,13 +41,14 @@ namespace Ruag.Client.ViewModel
         public ObservableCollection<EmployeeDTO> AllEmployees { get; set; }
         public ObservableCollection<OrgRoleDTO> AllRoles { get; set; }
 
-        public ObservableCollection<OrgRoleDTO> TreeData { get; set; }
+        public ObservableCollection<EmployeeDTO> TreeData { get; set; }
 
         #region Commands
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand<int> EditCommand { get; set; }
         public RelayCommand<int> DeleteCommand { get; set; }
+        public EmployeeDTO RootEmployee { get; private set; }
         #endregion
         public PersonViewModel()
         {
@@ -66,7 +68,7 @@ namespace Ruag.Client.ViewModel
 
         private void FetchData()
         {
-            AllEmployees = new ObservableCollection<EmployeeDTO>(GetAllEmployees());
+            AllEmployees = new ObservableCollection<EmployeeDTO>(GetAllActiveEmployees());
             AllRoles = new ObservableCollection<OrgRoleDTO>(GetAllRoles());
             RaisePropertyChanged("AllEmployees");
             RaisePropertyChanged("AllRoles");
@@ -76,31 +78,30 @@ namespace Ruag.Client.ViewModel
         private void ConstructTree()
         {
             OrgRoleDTO rootNode = (from role in AllRoles where role.ParentRoleId == 0 select role).FirstOrDefault();
-            CreateChild(rootNode);
-            TreeData = new ObservableCollection<OrgRoleDTO>();
-            TreeData.Add(rootNode);
+            RootEmployee = CreateChild(rootNode);
+            TreeData = new ObservableCollection<EmployeeDTO>();
+            TreeData.Add(RootEmployee);
             RaisePropertyChanged("TreeData");
         }
 
 
-        private OrgRoleDTO CreateChild(OrgRoleDTO role)
+        private EmployeeDTO CreateChild(OrgRoleDTO role)
         {
+            var empAtRole = (from emp in AllEmployees where emp.RoleId == role.Id select emp).FirstOrDefault() ;
+            empAtRole = empAtRole == null ? new EmployeeDTO() { Name = role.Name }: empAtRole;
             if (role.ChildRoles.Count > 0)
             {
                 var childRoles = (from subRole in AllRoles where subRole.ParentRoleId == role.Id select subRole).ToList();
                 foreach (OrgRoleDTO childRole in childRoles)
                 {
-                    CreateChild(childRole);
+                    if (empAtRole.SubOrdinates == null)
+                    {
+                        empAtRole.SubOrdinates = new List<EmployeeDTO>();
+                    }
+                    empAtRole.SubOrdinates.Add(CreateChild(childRole));
                 }
-                if (childRoles.Count > 0)
-                {
-                    role.ChildRoles = childRoles;
-                }
-
             }
-            return role;
-
-
+            return empAtRole;
         }
 
 
@@ -133,12 +134,12 @@ namespace Ruag.Client.ViewModel
             
         }
          
-        private List<EmployeeDTO> GetAllEmployees()
+        private List<EmployeeDTO> GetAllActiveEmployees()
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             try
             {
-                var response = HttpManager.Instance.Get(string.Empty, APIPaths.EmployeeGetAll);
+                var response = HttpManager.Instance.Get(string.Empty, APIPaths.EmployeeGetAllActive);
                 var actionResult = JsonConvert.DeserializeObject<ActionResult<List<EmployeeDTO>>>(response);
 
                 if (actionResult.ReturnCode == eReturnCode.Success)
@@ -205,18 +206,9 @@ namespace Ruag.Client.ViewModel
                 SelectedEmployee = (from emp in AllEmployees where emp.Id == obj select emp).FirstOrDefault();
                 if (SelectedEmployee != null)
                 {
-                    string jsonObj = JsonConvert.SerializeObject(SelectedEmployee);
-                    var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
-                    var response = HttpManager.Instance.Post(httpContent, APIPaths.RoleDelete);
-                    ActionResult<string> actionResult = JsonConvert.DeserializeObject<ActionResult<string>>(response);
-                    if (actionResult.ReturnCode == eReturnCode.Success)
-                    {
-                        SelectedEmployee = new EmployeeDTO();
-
-                        AllRoles = new ObservableCollection<OrgRoleDTO>(GetAllRoles());
-                        RaisePropertyChanged("AllRoles");
-                    }
-
+                    Messenger.Default.Register<MsgBxResultMessage>(this, DeleteConfirmResponseHandler);
+                    ShowMessageBox(eMessageBoxType.Confirmation, Application.Current.MainWindow.Resources["txtMsgTitleConfirm"].ToString(),
+                      Application.Current.MainWindow.Resources["txtMsgTextEmpDeleteConfirm"].ToString());
                 }
             }
             catch (Exception ex)
@@ -227,6 +219,39 @@ namespace Ruag.Client.ViewModel
             {
                 AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             }
+        }
+
+        private void DeleteConfirmResponseHandler(MsgBxResultMessage obj)
+        {
+
+
+            if (obj.Result == eMessageBoxResult.Yes)
+            {
+                string jsonObj = JsonConvert.SerializeObject(SelectedEmployee);
+                var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+                var response = HttpManager.Instance.Post(httpContent, APIPaths.RoleDelete);
+                ActionResult<string> actionResult = JsonConvert.DeserializeObject<ActionResult<string>>(response);
+
+                if (actionResult.ReturnCode == eReturnCode.Success)
+                {
+                    ShowMessageBox(eMessageBoxType.Info, Application.Current.MainWindow.Resources["txtMsgTitleSuccess"].ToString(),
+                     Application.Current.MainWindow.Resources["txtMsgTextEmpDelSuccess"].ToString());
+                    FetchData();
+                }
+                else
+                {
+                    ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                      Application.Current.MainWindow.Resources["txtMsgTextEmpDelError"].ToString());
+                }
+                FetchData();
+            }
+            
+
+            SelectedEmployee = new EmployeeDTO();
+            SelectedEmployee.Manager = new EmployeeDTO();
+            SelectedEmployee.EmployeeRole = new OrgRoleDTO();
+
+            Messenger.Default.Unregister<MsgBxResultMessage>(this, DeleteConfirmResponseHandler);
         }
 
         private void CancelCommandHandler()
@@ -256,6 +281,18 @@ namespace Ruag.Client.ViewModel
                     var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
                     var response = HttpManager.Instance.Post(httpContent, APIPaths.EmployeeCreate);
                     var actionResult = JsonConvert.DeserializeObject<ActionResult<EmployeeDTO>>(response);
+                    if (actionResult.ReturnCode == eReturnCode.Success)
+                    {
+                        ShowMessageBox(eMessageBoxType.Info, Application.Current.MainWindow.Resources["txtMsgTitleSuccess"].ToString(),
+                            Application.Current.MainWindow.Resources["txtMsgTextEmpAddSuccess"].ToString());
+
+                    }
+                    else
+                    {
+                        ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                            Application.Current.MainWindow.Resources["txtMsgTextEmpAddError"].ToString());
+                    }
+
                 }
                 else
                 {
@@ -264,9 +301,19 @@ namespace Ruag.Client.ViewModel
                     var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
                     var response = HttpManager.Instance.Post(httpContent, APIPaths.EmployeeUpdate);
                     var actionResult = JsonConvert.DeserializeObject<ActionResult<EmployeeDTO>>(response);
+                    if (actionResult.ReturnCode == eReturnCode.Success)
+                    {
+                        ShowMessageBox(eMessageBoxType.Info, Application.Current.MainWindow.Resources["txtMsgTitleSuccess"].ToString(),
+                            Application.Current.MainWindow.Resources["txtMsgTextEmpEditSuccess"].ToString());
+
+                    }
+                    else
+                    {
+                        ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                            Application.Current.MainWindow.Resources["txtMsgTextEmpEditError"].ToString());
+                    }
                 }
-                AllEmployees = new ObservableCollection<EmployeeDTO>(GetAllEmployees());
-                RaisePropertyChanged("AllEmployees");
+                FetchData();
 
                 SelectedEmployee = new EmployeeDTO();
 
@@ -280,6 +327,16 @@ namespace Ruag.Client.ViewModel
             {
                 AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             }
+        }
+
+        private void ShowMessageBox(eMessageBoxType Type, string title, string text)
+        {
+            Messenger.Default.Send<ShowMsgBxMessage>(new ShowMsgBxMessage()
+            {
+                Type = Type,
+                Title = title,
+                Text = text
+            });
         }
     }
 }
