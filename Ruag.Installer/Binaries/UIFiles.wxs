@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="cmp_CommonServiceLocator.dll" Guid="{BB1621FD-3877-4224-9635-99966F470D09}">
+                <File Id="fil_CommonServiceLocator.dll" KeyPath="yes" Source="$(var.Binaries)\CommonServiceLocator.dll" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.dll" Guid="{E7668815-B3FE-4D2C-9DB8-7C6890DADCF6}">
+                <File Id="fil_GalaSoft.MvvmLight.dll" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.dll" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.Extras.dll" Guid="{34B25CAA-848A-421F-91A5-4EBC042750B6}">
+                <File Id="fil_" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.Extras.dll" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.Extras.pdb" Guid="{1CB9CF37-F91F-4600-B84C-027CEFE98568}">
+                <File Id="fil_GalaSoft.MvvmLight.Extras.pdb" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.Extras.pdb" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.Extras.xml" Guid="{60CF9F6C-6FF4-4F88-84ED-47336FAA4444}">
+                <File Id="fil_GalaSoft.MvvmLight.Extras.xml" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.Extras.xml" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.pdb" Guid="{31D1FB57-6091-4F14-9748-829510F42DA7}">
+                <File Id="fil_GalaSoft.MvvmLight.pdb" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.pdb" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.Platform.dll" Guid="{29D2EE09-8C9A-4318-B54C-909D8E6E158D}">
+                <File Id="fil_GalaSoft.MvvmLight.Platform.dll" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.Platform.dll" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.Platform.pdb" Guid="{1CE7AA77-E4F6-4BD3-9B4C-BA74BFCDC9AD}">
+                <File Id="fil_GalaSoft.MvvmLight.Platform.pdb" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.Platform.pdb" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.Platform.xml" Guid="{7223275C-B073-4101-8FFA-EEEC1FA25A08}">
+                <File Id="fil_GalaSoft.MvvmLight.Platform.xml" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.Platform.xml" />
+            </Component>
+            <Component Id="cmp_GalaSoft.MvvmLight.xml" Guid="{77E2583A-6DF1-4A51-98A1-74B18BC56000}">
+                <File Id="fil_GalaSoft.MvvmLight.xml" KeyPath="yes" Source="$(var.Binaries)\GalaSoft.MvvmLight.xml" />
+            </Component>
+            <Component Id="cmp_log4net.dll" Guid="{FF50ED32-5D13-49DB-A6AC-EAF736BEFDC8}">
+                <File Id="fil_log4net.dll" KeyPath="yes" Source="$(var.Binaries)\log4net.dll" />
+            </Component>
+            <Component Id="cmp_log4net.xml" Guid="{B3AA1034-107F-4F87-B660-E5D8090A2B9B}">
+                <File Id="fil_log4net.xml" KeyPath="yes" Source="$(var.Binaries)\log4net.xml" />
+            </Component>
+            <Component Id="cmp_Microsoft.Windows.Design.Extensibility.dll" Guid="{B135842D-19C4-4A9E-B19C-8F83C4F03B1F}">
+                <File Id="fil_Microsoft.Windows.Design.Extensibility.dll" KeyPath="yes" Source="$(var.Binaries)\Microsoft.Windows.Design.Extensibility.dll" />
+            </Component>
+            <Component Id="cmp_Microsoft.Windows.Design.Interaction.dll" Guid="{5D14897D-2763-424C-AF09-9E7F75C100D5}">
+                <File Id="fil_Microsoft.Windows.Design.Interaction.dll" KeyPath="yes" Source="$(var.Binaries)\Microsoft.Windows.Design.Interaction.dll" />
+            </Component>
+            <Component Id="cmp_Newtonsoft.Json.dll" Guid="{5069F601-24D5-4B0E-919D-49644F01EF31}">
+                <File Id="fil_Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.Binaries)\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="cmp_Newtonsoft.Json.xml" Guid="{5872BA0D-5A7E-4DF7-A20C-AE1BD797ECA8}">
+                <File Id="fil_Newtonsoft.Json.xml" KeyPath="yes" Source="$(var.Binaries)\Newtonsoft.Json.xml" />
+            </Component>
+            <Component Id="cmp_Ruag.Client.exe" Guid="{59E5E3DE-F33D-41F6-BBD4-EDE5C7915C27}">
+                <File Id="fil_Ruag.Client.exe" KeyPath="yes" Source="$(var.Binaries)\Ruag.Client.exe" />
+            </Component>
+            <Component Id="cmp_Ruag.Client.exe.config" Guid="{FA0FB9E4-6B4D-4454-866A-4E84778190A5}">
+                <File Id="fil_Ruag.Client.exe.config" KeyPath="yes" Source="$(var.Binaries)\Ruag.Client.exe.config" />
+            </Component>
+            <Component Id="cmp_Ruag.Client.pdb" Guid="{214B4A2C-74F3-4679-A6AD-69C1A84E32B6}">
+                <File Id="fil_Ruag.Client.pdb" KeyPath="yes" Source="$(var.Binaries)\Ruag.Client.pdb" />
+            </Component>
+            <Component Id="cmp_Ruag.Common.dll" Guid="{207C4348-3208-4796-ACDA-138D2D2F5C21}">
+                <File Id="fil_Ruag.Common.dll" KeyPath="yes" Source="$(var.Binaries)\Ruag.Common.dll" />
+            </Component>
+            <Component Id="cmp_Ruag.Common.pdb" Guid="{E9EB66F5-ABB3-474E-A8AD-F43AC3F11319}">
+                <File Id="fil_Ruag.Common.pdb" KeyPath="yes" Source="$(var.Binaries)\Ruag.Common.pdb" />
+            </Component>
+            <Component Id="cmp_Ruag.DTO.dll" Guid="{06E63318-28E5-4E85-90E8-13B0361AB6FD}">
+                <File Id="fil_Ruag.DTO.dll" KeyPath="yes" Source="$(var.Binaries)\Ruag.DTO.dll" />
+            </Component>
+            <Component Id="cmp_Ruag.DTO.dll.config" Guid="{91F75AE0-512A-4B06-9F33-C599C0C68281}">
+                <File Id="fil_Ruag.DTO.dll.config" KeyPath="yes" Source="$(var.Binaries)\Ruag.DTO.dll.config" />
+            </Component>
+            <Component Id="cmp_Ruag.DTO.pdb" Guid="{102DA2F4-8024-4ED6-9182-FDF82C5DE207}">
+                <File Id="fil_Ruag.DTO.pdb" KeyPath="yes" Source="$(var.Binaries)\Ruag.DTO.pdb" />
+            </Component>
+            <Component Id="cmp_System.Windows.Interactivity.dll" Guid="{FAC94A35-3307-4C58-AC97-24A5E8E6A41B}">
+                <File Id="fil_System.Windows.Interactivity.dll" KeyPath="yes" Source="$(var.Binaries)\System.Windows.Interactivity.dll" />
+            </Component>
+            
+            <Directory Id="dir_en" Name="en">
+                <Component Id="cmp_Microsoft.Windows.Design.Extensibility.resources.dll" Guid="{988CFBB6-1808-416D-AF34-C46544735F0A}">
+                    <File Id="fil_Microsoft.Windows.Design.Extensibility.resources.dll" KeyPath="yes" Source="$(var.Binaries)\en\Microsoft.Windows.Design.Extensibility.resources.dll" />
+                </Component>
+                <Component Id="cmp_Microsoft.Windows.Design.Interaction.resources.dll" Guid="{7F38910C-F6BC-4127-97B3-E5E42E797160}">
+                    <File Id="fil_Microsoft.Windows.Design.Interaction.resources.dll" KeyPath="yes" Source="$(var.Binaries)\en\Microsoft.Windows.Design.Interaction.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir_Localization" Name="Localization">
+                <Component Id="cmp_de.xaml" Guid="{4271E204-A0D2-4DDD-A6FE-ECF727140409}">
+                    <File Id="fil_de.xaml" KeyPath="yes" Source="$(var.Binaries)\Localization\de.xaml" />
+                </Component>
+                <Component Id="cmp_en-us.xaml" Guid="{2154577D-400D-4653-8FCB-201C3B141A63}">
+                    <File Id="fil_en-us.xaml" KeyPath="yes" Source="$(var.Binaries)\Localization\en-us.xaml" />
+                </Component>
+            </Directory>
+            
+            <Directory Id="dir_Themes" Name="Themes">
+                <Component Id="cmp_" Guid="{7E8B84B2-9596-4EAF-A794-AA86C3BEBAFA}">
+                    <File Id="fil_" KeyPath="yes" Source="$(var.Binaries)\Themes\DarkTheme.xaml" />
+                </Component>
+                <Component Id="cmp_" Guid="{B7A051C2-E76B-4109-B5D0-0B48036E00B5}">
+                    <File Id="fil_" KeyPath="yes" Source="$(var.Binaries)\Themes\LightTheme.xaml" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="AllComponents">
+            <ComponentRef Id="cmp7497E0B354AEA7F54D987BCDF7301E52" />
+            <ComponentRef Id="cmp0A996586383240FA3E04EF819E036618" />
+            <ComponentRef Id="cmp17BFF5FB30D3632422DA2006E44AD968" />
+            <ComponentRef Id="cmpA9858AEE074BA5FF4FF0B5CD1F5060D3" />
+            <ComponentRef Id="cmp2B5A2FE464CA1F7FF7E66D03CBDEAEC6" />
+            <ComponentRef Id="cmpC5323B58D6FE9921DCBD0DA02542A9EA" />
+            <ComponentRef Id="cmpBB590427EC85B15F8307BAB5F2C0D4FD" />
+            <ComponentRef Id="cmp429BF624042409EF870DB4BAFA8C779F" />
+            <ComponentRef Id="cmp0CE728A49B1A18E1D2A82C1FB62839E5" />
+            <ComponentRef Id="cmp0E0A13BC45FC27B4A39F923743C93F33" />
+            <ComponentRef Id="cmp13D58469BCB864EB53214ED46E622188" />
+            <ComponentRef Id="cmp742785C9A7B88BE6B2E81C2322E3D2EE" />
+            <ComponentRef Id="cmp64D1CAD1012A29774E5E3CAEA7C800A2" />
+            <ComponentRef Id="cmp3DD4CC8D90745F16676F94C513B4D35E" />
+            <ComponentRef Id="cmpBC4FC00A26E7D32479D42D3411317FC5" />
+            <ComponentRef Id="cmp125C379E185231EFADA4CB4301BD0A9E" />
+            <ComponentRef Id="cmpF3FE048AF229DEDB091B8833A5611752" />
+            <ComponentRef Id="cmp7B767B2ABDFF98273E3437CEA77E510B" />
+            <ComponentRef Id="cmpA3183B41235D5A42FDC57584610F2CA7" />
+            <ComponentRef Id="cmp2E663EC0311E6F0ECD0FA19F4F6811B5" />
+            <ComponentRef Id="cmpB192452D09342AECC4E4D5048E7CCBB2" />
+            <ComponentRef Id="cmp545AA47FDBF7A6F8B1FE077A872C0875" />
+            <ComponentRef Id="cmpB8AC40FFB1CD44F98EEF451F6BED755B" />
+            <ComponentRef Id="cmp34EA4EF1CFCCC10127231CEC5C1E708E" />
+            <ComponentRef Id="cmp017BFB3832A5B110A2B3A350E13F2A5C" />
+            <ComponentRef Id="cmp811A7E4D0C99436415F5C34004D290C7" />
+            <ComponentRef Id="cmpD07A5FB7F82B7E2248AE52A28850AB53" />
+            <ComponentRef Id="cmp62026DB0F65D20E46CC40E687F8CB690" />
+            <ComponentRef Id="cmp5397DC3CD5852E2C3CDDB3CF482D1AB2" />
+            <ComponentRef Id="cmpDEB6E898DC61C03D57D3448AC15E597D" />
+            <ComponentRef Id="cmpCF5D61A1133161FA7F5D38BE62C747F6" />
+            <ComponentRef Id="cmpBE837EF845552EA59077F08965D6ED6F" />
+            <ComponentRef Id="cmpFE208148C55A4FA8002E34BD5F1D2BA5" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

@@ -18,6 +18,7 @@ using Ruag.Common.Enums;
 using System.Collections.ObjectModel;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using System.Threading;
 
 namespace Ruag.Client.ViewModel
 {
@@ -53,14 +54,14 @@ namespace Ruag.Client.ViewModel
             
             GridDisplaySelected = true;
             RaisePropertyChanged("GridDisplaySelected");
-            PageTitle = Application.Current.MainWindow.Resources["txtAddEmployee"].ToString();
+            PageTitle = Application.Current.MainWindow.Resources["txtAddRole"].ToString();
             RaisePropertyChanged("PageTitle");
             
             SelectedRole = new OrgRoleDTO();
             RaisePropertyChanged("SelectedRole");
-
-            FetchData();
-
+            ThreadStart ts = new ThreadStart(FetchData);
+            Thread t = new Thread(ts);
+            ts.BeginInvoke(null, null);
         }
 
         private void FetchData()

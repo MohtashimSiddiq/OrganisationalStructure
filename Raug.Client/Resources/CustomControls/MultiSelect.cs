@@ -252,6 +252,10 @@ namespace Ruag.Client.Resources.CustomControls
 
             OrgRoleDTO newRole = e.NewValue as OrgRoleDTO;
             ObservableCollection<OrgRoleDTO> sourceItems = ms.GetValue(SourceProperty) as ObservableCollection<OrgRoleDTO>;
+            if (sourceItems == null )
+            {
+                return;
+            }
             ObservableCollection<MultiSelectItem<OrgRoleDTO>> tempSelctionList = ms.GetValue(SelectionListProperty) as ObservableCollection<MultiSelectItem<OrgRoleDTO>>;
             if (tempSelctionList != null)
             {
@@ -268,7 +272,11 @@ namespace Ruag.Client.Resources.CustomControls
 
             OrgRoleDTO currentParentValue = e.NewValue as OrgRoleDTO;
             //Clearing current selection list
-            (ms.GetValue(SelectionListProperty) as ObservableCollection<MultiSelectItem<OrgRoleDTO>>).Clear();
+            ObservableCollection<MultiSelectItem<OrgRoleDTO>> tempSelectnList = ms.GetValue(SelectionListProperty) as ObservableCollection<MultiSelectItem<OrgRoleDTO>>;
+            if (tempSelectnList != null)
+            {
+                tempSelectnList.Clear();
+            }
             //Fetching Orginal list
             
             currentParentValue = (from role in sourceItems where role.Id == currentParentValue.Id select role).FirstOrDefault();

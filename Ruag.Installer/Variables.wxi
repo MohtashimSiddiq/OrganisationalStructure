@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductName = 'Ruag Simco' ?>
+  <!-- Can change -->
+  <?define ProductVersion = '1.0.0.0'?> 
+  <?define UpgradeCode='41DFE16D-CA42-40FE-8298-652E84AF9391'?>
+  <?define Manufacturer='Ruag'?>
+  <?define MainFolder = 'Ruag Simco' ?>
+  <?define Binaries = 'Binaries' ?>
+  <?define Win64 = "no" ?>
+</Include>

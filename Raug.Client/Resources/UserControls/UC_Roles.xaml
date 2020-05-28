@@ -19,7 +19,7 @@
 				<ColumnDefinition Width="0.4*"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<ScrollViewer  Margin="20 50 0 0">
+			<ScrollViewer  Margin="20 20 0 0">
 			<StackPanel >
 				
 				<TextBlock Text="{Binding PageTitle,FallbackValue=Add Role}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brush_textColor}"

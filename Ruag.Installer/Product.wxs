@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include Variables.wxi ?>
+	<Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade   Schedule="afterInstallInitialize"   AllowSameVersionUpgrades="yes"
+                    DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."></MajorUpgrade>
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.ProductVersion)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />
+      <UpgradeVersion Minimum="0.0.0" Maximum="$(var.ProductVersion)" IncludeMinimum="yes" IncludeMaximum="no" Property="OLDERVERSIONBEINGUPGRADED" />
+    </Upgrade>
+		
+    <MediaTemplate EmbedCab="yes" />
+    <WixVariable  Id="WixUIBannerBmp" Value="SupportDir\banner.bmp"/>
+    <WixVariable  Id="WixUIDialogBmp" Value="SupportDir\background.bmp"/>
+     <Icon Id="ShortcutIcons.ico" SourceFile="SupportDir\RuagLogo.ico" />
+     
+    <UI>
+      <UIRef Id="WixUI_Minimal"/>
+    </UI>
+		<Feature Id="ProductFeature" Title="Ruag Simco" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="$(var.MainFolder)" />
+			</Directory>
+      <Directory Id="DesktopFolder"/>
+        <Directory Id='ProgramMenuFolder'>
+        
+          <Component Id='RuagShortcut'  Win64='$(var.Win64)' Guid='1440B17D-9995-42E8-9F5A-1921561B2EE1'>
+            <Shortcut Id='AppLauncher' Description='$(var.ProductName)' Name ='$(var.ProductName)'  Icon='ShortcutIcons.ico'
+            Target='[INSTALLFOLDER]Ruag.Client.exe' WorkingDirectory='APPLICATIONFOLDER'/>
+
+            <Shortcut Id='DesktopAppLauncher' Directory='DesktopFolder' Description='$(var.ProductName)' Name ='$(var.ProductName)'  Icon='ShortcutIcons.ico'
+           Target='[INSTALLFOLDER]Ruag.Client.exe'  WorkingDirectory='APPLICATIONFOLDER'/>
+
+            <RemoveFolder Id='ApplicationProgramsFolder' On='uninstall'/>
+            <RegistryValue Root='HKCU' Key='Software\$(var.Manufacturer)\$(var.ProductName)' Type ='multiString'
+            Name='installed' Value='1' KeyPath='yes'/>
+          </Component>
+       
+      </Directory>
+    
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<ComponentRef Id='RuagShortcut'/>
+      <ComponentGroupRef Id='AllComponents'/>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

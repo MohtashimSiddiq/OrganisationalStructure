@@ -80,7 +80,7 @@
             HorizontalAlignment="Center" Fill="#fff"
             VerticalAlignment="Center" />
 			<customControls:ImageButton Grid.Column="2" ImagePath="{DynamicResource imgRoleDelete}" HoverImagePath="{DynamicResource imgDeleteHover}" 
-										ImageHeight="12" ImageWidth="12" PathHorizontalAlignment="Center"
+										ImageHeight="15" ImageWidth="15" PathHorizontalAlignment="Center"
 										PathVerticalAlignment="Center">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
@@ -89,6 +89,7 @@
 																		CommandParameter="{Binding CurrentItem}" />
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
+				
 			</customControls:ImageButton>
 		</Grid>
 		<ControlTemplate.Triggers>
@@ -96,7 +97,7 @@
 				<Setter Property="Fill" TargetName="Arrow" Value="WhiteSmoke"/>
 			</Trigger>
 			<Trigger Property="ToggleButton.IsChecked" Value="True">
-				<Setter Property="Panel.Background" TargetName="ButtonBorder" Value="WhiteSmoke"/>
+				<Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{DynamicResource brush_combo}"/>
 				<Setter Property="Shape.Fill" TargetName="Arrow" Value="#FF8D979E"/>
 			</Trigger>
 			<Trigger Property="UIElement.IsEnabled" Value="False">
@@ -598,6 +599,7 @@
 							<ContentPresenter.Content>
 								<Image x:Name="img" Height="24" Width="24" Source="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource StringToUriConverter}}"  />
 							</ContentPresenter.Content>
+							
 						</ContentPresenter>
 					</Border>
 				</DataTemplate>
@@ -607,7 +609,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TabItem">
-					<Border Name="Border" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Margin="2">
+					<Border Name="Border" BorderThickness="0" BorderBrush="Transparent" Margin="0" Cursor="Hand">
 						<ContentPresenter x:Name="ContentSite"
 										VerticalAlignment="Center"
 										HorizontalAlignment="Center"
@@ -616,10 +618,10 @@
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected" Value="True">
-							<Setter TargetName="Border" Property="Background" Value="{DynamicResource brush_Primary}" />
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource brush_tabSelected}" />
 						</Trigger>
 						<Trigger Property="IsSelected" Value="False">
-							<Setter TargetName="Border" Property="Background" Value="Transparent" />
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource brush_tabUnselected}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -846,6 +848,10 @@
 		</Setter>
 	</Style>
 
+	<Style TargetType="DataGrid">
+		<Setter Property="AlternatingRowBackground" Value="{DynamicResource brush_rowAlternateBackground}" />
+	</Style>
+	
 	<Style TargetType="DataGridRow">
 		<Setter Property="Padding" Value="0"/>
 		<Setter Property="Background" Value="White"/>

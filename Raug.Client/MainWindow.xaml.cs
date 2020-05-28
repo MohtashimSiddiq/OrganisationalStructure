@@ -24,7 +24,7 @@ namespace Ruag.Client
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             ChangeResourceDictionary(eLocales.English);
-            RuagResourceManager.Instance.ChangeTheme(eUIMode.Dark, this.Resources.MergedDictionaries);
+            RuagResourceManager.Instance.ChangeTheme(eUIMode.Light, this.Resources.MergedDictionaries);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

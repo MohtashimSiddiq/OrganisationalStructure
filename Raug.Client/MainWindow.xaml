@@ -8,7 +8,7 @@
 		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 		
         mc:Ignorable="d" 
-        Title="MainWindow" Height="350" Width="800" AllowsTransparency="True" WindowStyle="None" WindowState="Normal" 
+        Title="MainWindow" Height="450" Width="800" AllowsTransparency="True" WindowStyle="None" WindowState="Normal" 
 		xmlns:customControls="clr-namespace:Ruag.Client.Resources.CustomControls" DataContext="{Binding Main, Source={StaticResource Locator}}" >
 	<!--DataContext="{Binding Main, Source={StaticResource Locator}}"-->
 	<Grid>
@@ -58,22 +58,22 @@
 			</Grid>
 			<Grid Grid.Row="1" Background="{DynamicResource brush_Primary}">
 				<StackPanel Orientation="Horizontal"  HorizontalAlignment="Right"  Margin="0 0 200 0"  >
-					<customControls:MenuRadioButton Content="Home" Value="{x:Static local:Helpers.Enums.UIScreens.Home}" 
+					<customControls:MenuRadioButton Content="{DynamicResource txtHome}" Value="{x:Static local:Helpers.Enums.UIScreens.Home}" 
 													ForeColor="{DynamicResource brush_menuTextColor}"
 													HoverColor="{DynamicResource brush_menuTextHoverColor}"
 													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
-					
-					<customControls:MenuRadioButton Content="Roles" Value="{x:Static local:Helpers.Enums.UIScreens.Roles}"
+
+						<customControls:MenuRadioButton Content="{DynamicResource txtRoles}" Value="{x:Static local:Helpers.Enums.UIScreens.Roles}"
 													ForeColor="{DynamicResource brush_menuTextColor}"
 													HoverColor="{DynamicResource brush_menuTextHoverColor}"
 													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 					
-					<customControls:MenuRadioButton Content="Employees" Value="{x:Static local:Helpers.Enums.UIScreens.Employees}"
+					<customControls:MenuRadioButton Content="{DynamicResource txtEmployees}" Value="{x:Static local:Helpers.Enums.UIScreens.Employees}"
 													ForeColor="{DynamicResource brush_menuTextColor}"
 													HoverColor="{DynamicResource brush_menuTextHoverColor}"
 													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-					
-					<customControls:MenuRadioButton Content="Settings" Value="{x:Static local:Helpers.Enums.UIScreens.Settings}"
+
+						<customControls:MenuRadioButton Content="{DynamicResource txtSettings}" Value="{x:Static local:Helpers.Enums.UIScreens.Settings}"
 													ForeColor="{DynamicResource brush_menuTextColor}"
 													HoverColor="{DynamicResource brush_menuTextHoverColor}"
 													RadioBinding="{Binding SelectedScreen,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
