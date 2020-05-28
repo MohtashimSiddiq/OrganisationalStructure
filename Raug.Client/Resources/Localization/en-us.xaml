@@ -56,6 +56,10 @@
 	
 	<system:String x:Key="txtMsgTextEmpDelError">Unable to delete employee</system:String>
 	<system:String x:Key="txtMsgTextRoleDelError">Unable to delete role</system:String>
+	<system:String x:Key="txtMsgTextRoleDelErrorEmployeeExists">Unable to delete role. An employee exists in this role.</system:String>
+	<system:String x:Key="txtMsgTextRoleDelErrorSubOrdinatesExists">Unable to delete role. Employees exists under this role. </system:String>
+	<system:String x:Key="txtMsgTextParentRoleModifiedToSelf">Parent Role cannot be of self</system:String>
+	<system:String x:Key="txtMsgTextRoleEditConfirm">Editing the role may change organisational structure! &#10;Do you want to continue?</system:String>
 
 	<!--Fonts-->
 	<system:Double x:Key="fnt_AppName">16</system:Double>

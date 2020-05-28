@@ -17,11 +17,13 @@ namespace Ruag.Data.Repository
         private AppDBContext _appDBContext;
         private DbSet<OrgRole> _orgRoles;
         private List<OrgRole> _orgChildRoles;
+        private DbSet<Employee> _employees;
         public OrgRoleRepository(AppDBContext dBContext)
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             _appDBContext = dBContext;
             _orgRoles = dBContext.OrgRoles;
+            _employees = dBContext.Employees;
             AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
         }
         public ActionResult<OrgRoleDTO> Add(OrgRoleDTO roleDTO)
@@ -58,12 +60,30 @@ namespace Ruag.Data.Repository
                 OrgRole role = _orgRoles.Where(r => r.Id == id).Include("ChildRoles").FirstOrDefault();
                 if (role != null)
                 {
-                    _orgChildRoles = new List<OrgRole>();
-                    GetChildRolesToDelete(role);
-                    foreach(OrgRole orgRole in _orgChildRoles)
+                    var emp = (from employee in _employees where employee.RoleId == role.Id select employee).FirstOrDefault();
+                    if (emp == null)
                     {
-                        _orgRoles.Remove(orgRole);
+                        _orgChildRoles = new List<OrgRole>();
+                        GetChildRolesToDelete(role);
+                        List<int> existingEmployeeRoles = _employees.Select(e => e.RoleId.Value).ToList();
+                        int employeesInChildRolesCount =_orgChildRoles.Where(r => r.Id.Value.In(existingEmployeeRoles)).Count();
+                        if (employeesInChildRolesCount > 0)
+                        {
+                            return new ActionResult<string>() { ReturnCode = eReturnCode.SubOrdinateExists, ReturnDescription = "Role deleted error. Subordiates exists", Result = "" };
+                        }
+                        else
+                        {
+                            foreach (OrgRole orgRole in _orgChildRoles)
+                            {
+                                _orgRoles.Remove(orgRole);
+                            }
+                        }
                     }
+                    else
+                    {
+                        return new ActionResult<string>() { ReturnCode = eReturnCode.EmployeeExists, ReturnDescription = "Role delete error.Employee exists.", Result = "" };
+                    }
+                    
                 }
                 _appDBContext.SaveChanges();
                 return new ActionResult<string>() { ReturnCode = eReturnCode.Success, ReturnDescription = "Role deleted successfully", Result = "" };
@@ -82,6 +102,7 @@ namespace Ruag.Data.Repository
         private void GetChildRolesToDelete(OrgRole childRole)
         {
             OrgRole tempRole = _orgRoles.Where(r => r.Id == childRole.Id).Include("ChildRoles").FirstOrDefault();
+
             foreach (OrgRole childrole in tempRole.ChildRoles)
             {
                 GetChildRolesToDelete(childrole);

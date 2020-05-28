@@ -219,17 +219,32 @@ namespace Ruag.Client.ViewModel
                 var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
                 var response = HttpManager.Instance.Post(httpContent, APIPaths.RoleDelete);
                 ActionResult<string> actionResult = JsonConvert.DeserializeObject<ActionResult<string>>(response);
-                
-                    if (actionResult.ReturnCode == eReturnCode.Success)
-                    {
+
+                switch (actionResult.ReturnCode)
+                {
+                    case eReturnCode.Success:
                         ShowMessageBox(eMessageBoxType.Info, Application.Current.MainWindow.Resources["txtMsgTitleSuccess"].ToString(),
                             Application.Current.MainWindow.Resources["txtMsgTextRoleDelSuccess"].ToString());
-                    }
-                    else
-                    {
+                        break;
+                    case eReturnCode.Failure:
                         ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
                             Application.Current.MainWindow.Resources["txtMsgTextRoleDelError"].ToString());
-                    }
+                        break;
+                    case eReturnCode.EmployeeExists:
+                        ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                           Application.Current.MainWindow.Resources["txtMsgTextRoleDelErrorEmployeeExists"].ToString());
+                        break;
+                    case eReturnCode.SubOrdinateExists:
+                        ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                           Application.Current.MainWindow.Resources["txtMsgTextRoleDelErrorSubOrdinatesExists"].ToString());
+                        break;
+
+                }
+                    //else
+                    //{
+                    //    ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                    //        Application.Current.MainWindow.Resources["txtMsgTextRoleDelError"].ToString());
+                    //}
                     FetchData();
                 }
             
@@ -290,36 +305,27 @@ namespace Ruag.Client.ViewModel
                         ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
                             Application.Current.MainWindow.Resources["txtMsgTextRoleAddError"].ToString());
                     }
+                    FetchData();
 
-
-
+                    SelectedRole = new OrgRoleDTO();
+                    SelectedRole.ParentRole = AllRoles.Where(r => r.ParentRoleId == 0).FirstOrDefault().Clone() as OrgRoleDTO;
+                    RaisePropertyChanged("SelectedRole");
                 }
                 else
                 {
-                    //Edit Code
-                    SelectedRole.ParentRoleId = SelectedRole.ParentRole.Id;
-                    SelectedRole.ParentRole = null;
-                    string jsonObj = JsonConvert.SerializeObject(SelectedRole);
-                    var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
-                    var response = HttpManager.Instance.Post(httpContent, APIPaths.RoleUpdate);
-                    ActionResult<OrgRoleDTO> actionResult = JsonConvert.DeserializeObject<ActionResult<OrgRoleDTO>>(response);
-                    if (actionResult.ReturnCode == eReturnCode.Success)
-                    {
-                        ShowMessageBox(eMessageBoxType.Info, Application.Current.MainWindow.Resources["txtMsgTitleSuccess"].ToString(),
-                            Application.Current.MainWindow.Resources["txtMsgTextRoleEditSuccess"].ToString());
-                       
-                    }
-                    else
+                    if (SelectedRole.Id == SelectedRole.ParentRole.Id)
                     {
                         ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
-                            Application.Current.MainWindow.Resources["txtMsgTextRoleEditError"].ToString());
+                            Application.Current.MainWindow.Resources["txtMsgTextParentRoleModifiedToSelf"].ToString());
+                        return;
                     }
-                }
-                FetchData();
+                    Messenger.Default.Register<MsgBxResultMessage>(this, EditConfirmResponseHandler);
+                    ShowMessageBox(eMessageBoxType.Confirmation, Application.Current.MainWindow.Resources["txtMsgTitleConfirm"].ToString(),
+                           Application.Current.MainWindow.Resources["txtMsgTextRoleEditConfirm"].ToString());
+                    return;
 
-                SelectedRole = new OrgRoleDTO();
-                SelectedRole.ParentRole = AllRoles.Where(r => r.ParentRoleId == 0).FirstOrDefault().Clone() as OrgRoleDTO;
-                RaisePropertyChanged("SelectedRole");
+                }
+                
             }
             catch (Exception ex)
             {
@@ -330,6 +336,41 @@ namespace Ruag.Client.ViewModel
             {
                 AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             }
+        }
+
+        private void EditConfirmResponseHandler(MsgBxResultMessage obj)
+        {
+            if (obj.Result == eMessageBoxResult.Yes)
+            {
+                //Edit Code
+                SelectedRole.ParentRoleId = SelectedRole.ParentRole.Id;
+                SelectedRole.ParentRole = null;
+                string jsonObj = JsonConvert.SerializeObject(SelectedRole);
+                var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+                var response = HttpManager.Instance.Post(httpContent, APIPaths.RoleUpdate);
+                ActionResult<OrgRoleDTO> actionResult = JsonConvert.DeserializeObject<ActionResult<OrgRoleDTO>>(response);
+                if (actionResult.ReturnCode == eReturnCode.Success)
+                {
+                    ShowMessageBox(eMessageBoxType.Info, Application.Current.MainWindow.Resources["txtMsgTitleSuccess"].ToString(),
+                        Application.Current.MainWindow.Resources["txtMsgTextRoleEditSuccess"].ToString());
+
+                }
+                else
+                {
+                    ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                        Application.Current.MainWindow.Resources["txtMsgTextRoleEditError"].ToString());
+                }
+                FetchData();
+                SelectedRole = new OrgRoleDTO();
+                SelectedRole.ParentRole = AllRoles.Where(r => r.ParentRoleId == 0).FirstOrDefault().Clone() as OrgRoleDTO;
+                RaisePropertyChanged("SelectedRole");
+            }
+
+
+            SelectedRole = new OrgRoleDTO();
+            SelectedRole.ParentRole = AllRoles.Where(r => r.ParentRoleId == 0).FirstOrDefault().Clone() as OrgRoleDTO;
+            RaisePropertyChanged("SelectedRole");
+            Messenger.Default.Unregister<MsgBxResultMessage>(this, DeleteConfirmResponseHandler);
         }
 
         private void ShowMessageBox(eMessageBoxType Type, string title, string text)

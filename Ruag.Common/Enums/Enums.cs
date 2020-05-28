@@ -14,7 +14,8 @@ namespace Ruag.Common.Enums
         NotAdded,
         NotModified,
         NotDeleted,
-
+        EmployeeExists,
+        SubOrdinateExists,
     }
 
    

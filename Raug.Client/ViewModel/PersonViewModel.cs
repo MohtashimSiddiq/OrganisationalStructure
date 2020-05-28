@@ -223,8 +223,6 @@ namespace Ruag.Client.ViewModel
 
         private void DeleteConfirmResponseHandler(MsgBxResultMessage obj)
         {
-
-
             if (obj.Result == eMessageBoxResult.Yes)
             {
                 string jsonObj = JsonConvert.SerializeObject(SelectedEmployee);
@@ -244,8 +242,7 @@ namespace Ruag.Client.ViewModel
                       Application.Current.MainWindow.Resources["txtMsgTextEmpDelError"].ToString());
                 }
                 FetchData();
-            }
-            
+            }         
 
             SelectedEmployee = new EmployeeDTO();
             SelectedEmployee.Manager = new EmployeeDTO();
@@ -276,6 +273,7 @@ namespace Ruag.Client.ViewModel
                 if (!_isEdit)
                 {
                     //Add Code
+
                    
                     string jsonObj = JsonConvert.SerializeObject(SelectedEmployee);
                     var httpContent = new StringContent(jsonObj, Encoding.UTF8, "application/json");

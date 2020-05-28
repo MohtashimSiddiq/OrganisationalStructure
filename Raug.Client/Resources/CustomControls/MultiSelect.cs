@@ -103,9 +103,6 @@ namespace Ruag.Client.Resources.CustomControls
 
     private static void SelectionChangedCommandHandler(object sender, ExecutedRoutedEventArgs e)
     {
-           
-            
-
             RoleSelector ms = sender as RoleSelector;
             if (ms.IsHandlingSelectionChangedCmd)
             {

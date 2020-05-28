@@ -125,7 +125,7 @@
 										<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold"
                                Text="{Binding Name}"/>
 										<TextBlock Grid.Row="1" Grid.Column="0" FontStyle="Italic"
-                               Text="{Binding Description}" Margin="5,0,0,0"/>
+                               Text="{Binding EmployeeRole.Name}" Margin="5,0,0,0"/>
 
 									</Grid>
 								</Border>
