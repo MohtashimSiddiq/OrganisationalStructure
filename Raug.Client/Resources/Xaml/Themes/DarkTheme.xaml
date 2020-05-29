@@ -23,6 +23,8 @@
 
 	<SolidColorBrush x:Key="brush_tabSelected">#333333</SolidColorBrush>
 	<SolidColorBrush x:Key="brush_tabUnselected">#555555</SolidColorBrush>
+	<SolidColorBrush x:Key="brush_treeViewItemBackground">#555555</SolidColorBrush>
+	<SolidColorBrush x:Key="brush_treeViewItemForeground">Black</SolidColorBrush>
 	
 
 	<BitmapImage x:Key="imgSettings" UriSource="/Resources/Images/Dark/settings.png" ></BitmapImage>

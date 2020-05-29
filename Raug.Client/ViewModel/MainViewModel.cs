@@ -15,9 +15,9 @@ namespace Ruag.Client.ViewModel
     
     public class MainViewModel : ViewModelBase
     {
-        private eUIMode _currentUIMode;
-        private eLocales _currentLocale;
-
+        public eUIMode CurrentUIMode;
+        public eLocales CurrentLocale;
+        
 
 
         private UIScreens _selectedScreen;
@@ -157,7 +157,7 @@ namespace Ruag.Client.ViewModel
                     MainContent = new PersonViewModel();
                     break;
                 case UIScreens.Settings:
-                    SettingsViewModel Vm_Settings = new SettingsViewModel() {SelectedUIMode = _currentUIMode, SelectedLocale = _currentLocale };
+                    SettingsViewModel Vm_Settings = new SettingsViewModel() {SelectedUIMode = CurrentUIMode, SelectedLocale = CurrentLocale };
                     MainContent = Vm_Settings;
                     break;
                 
@@ -202,7 +202,7 @@ namespace Ruag.Client.ViewModel
         private void UIModeChangeMsgHandler(UIModeMessage obj)
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
-            _currentUIMode = obj.UIMode;
+            CurrentUIMode = obj.UIMode;
             ThemeChangedEvent(this, new ThemeChangeEventArgs() { NewUIMode = obj.UIMode });
             AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
         }
@@ -211,7 +211,7 @@ namespace Ruag.Client.ViewModel
         private void LocaleChangeMsgHandler(LocaleMessage obj)
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
-            _currentLocale = obj.SelectedLocale;
+            CurrentLocale = obj.SelectedLocale;
             LocaleChagedEvent(this, new LocaleChangeEventArgs() { NewLocale = obj.SelectedLocale });
             AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
         }

@@ -31,6 +31,8 @@ namespace Ruag.Client
         {
             AppLogger.Instance.LogBegin(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             _main = (MainViewModel) this.DataContext;
+            _main.CurrentLocale = eLocales.English;
+            _main.CurrentUIMode = eUIMode.Light;
             if (_main!= null)
             {
                 _main.MaximizeEvent += _main_MaximizeEvent;

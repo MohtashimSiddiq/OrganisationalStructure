@@ -47,7 +47,10 @@ namespace Ruag.DTO
         }
         public virtual EmployeeDTO Manager
         {
-            get { return _manager; }
+            get
+            {
+                return _manager;
+            }
             set { _manager = value; RaisePropertyChanged("Manager"); }
         }
         public List<EmployeeDTO> SubOrdinates

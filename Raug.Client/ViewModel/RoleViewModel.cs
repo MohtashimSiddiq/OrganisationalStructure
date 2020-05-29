@@ -317,6 +317,13 @@ namespace Ruag.Client.ViewModel
                     if (SelectedRole.Id == SelectedRole.ParentRole.Id)
                     {
                         ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
+                                                    Application.Current.MainWindow.Resources["txtMsgTextParentRoleModifiedToSelf"].ToString());
+                        return;
+                    }
+                    
+                    if (!ValidateRoleEdit(SelectedRole.ParentRole))
+                    {
+                        ShowMessageBox(eMessageBoxType.Error, Application.Current.MainWindow.Resources["txtMsgTitleError"].ToString(),
                             Application.Current.MainWindow.Resources["txtMsgTextParentRoleModifiedToSelf"].ToString());
                         return;
                     }
@@ -337,6 +344,22 @@ namespace Ruag.Client.ViewModel
             {
                 AppLogger.Instance.LogEnd(this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod().Name);
             }
+        }
+
+
+        private bool ValidateRoleEdit(OrgRoleDTO role)
+        {
+            bool returnVal = true;
+            if (role.Id == SelectedRole.Id)
+            {
+                return false;
+                
+            }
+            if (role.ParentRole != null)
+            {
+                returnVal = returnVal == true ? ValidateRoleEdit(role.ParentRole) : returnVal;
+            }            
+            return returnVal;
         }
 
         private void EditConfirmResponseHandler(MsgBxResultMessage obj)

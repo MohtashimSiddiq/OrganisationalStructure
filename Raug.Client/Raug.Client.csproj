@@ -85,7 +85,9 @@
     <Compile Include="Helpers\APIPaths.cs" />
     <Compile Include="Helpers\AppSettingKeys.cs" />
     <Compile Include="Helpers\ConfigurationReader.cs" />
+    <Compile Include="Helpers\Converters\BoolToVisibilityMultiConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\ManagerToRoleMultiConverter.cs" />
     <Compile Include="Helpers\Converters\StringToUriConverter.cs" />
     <Compile Include="Helpers\DataTemplateSelectors\MainContentSelector.cs" />
     <Compile Include="Helpers\DataTemplateSelectors\MsgContentSelector.cs" />

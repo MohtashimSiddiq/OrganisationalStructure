@@ -141,6 +141,7 @@ namespace Ruag.Client.Resources.CustomControls
         private static void RemoveCommandHandler(object sender, ExecutedRoutedEventArgs e)
         {
             RoleSelector ms = sender as RoleSelector;
+            ms.ExecuteSelctionChangedCallBack = false;
             OrgRoleDTO param = e.Parameter as OrgRoleDTO;
             if (param.ParentRoleId == 0)
             {
@@ -149,17 +150,19 @@ namespace Ruag.Client.Resources.CustomControls
             ObservableCollection<MultiSelectItem<OrgRoleDTO>> tempSelecItems = ms.GetValue(SelectionListProperty) as ObservableCollection<MultiSelectItem<OrgRoleDTO>>;
             var removedItem = tempSelecItems.ToList().Where(item => item.CurrentItem.Id == param.Id).First();
             int removedItemIndex = tempSelecItems.IndexOf(removedItem);
+            
             for (int i = removedItemIndex; i < tempSelecItems.Count;)
             {
-
+                
                 tempSelecItems.RemoveAt(i);
             }
+            ms.SetValue(SelectionProperty, tempSelecItems.Last().CurrentItem);
             if (tempSelecItems.Last().CurrentItem.ChildRoles.Count > 0)
             {
                  tempSelecItems.Add(new MultiSelectItem<OrgRoleDTO>() { IsButton = true });
             }
             ms.SetValue(SelectionListProperty, tempSelecItems);
-
+            ms.ExecuteSelctionChangedCallBack = true;
 
         }
 
@@ -207,6 +210,10 @@ namespace Ruag.Client.Resources.CustomControls
             AddInitial(e.NewValue as ObservableCollection<OrgRoleDTO>, ms);
             ObservableCollection<MultiSelectItem<OrgRoleDTO>> tempSelecItems = ms.GetValue(SelectionListProperty) as ObservableCollection<MultiSelectItem<OrgRoleDTO>>;
             ms.ExecuteSelctionChangedCallBack = true;
+            if (tempSelecItems == null)
+            {
+                return;
+            }
             ms.SetValue(SelectionProperty, tempSelecItems[0].CurrentItem);
           
         }
@@ -224,6 +231,10 @@ namespace Ruag.Client.Resources.CustomControls
                 if (source.First().ChildRoles.Count > 0)
                 {
                     ms.SetValue(SelectionListProperty, new ObservableCollection<MultiSelectItem<OrgRoleDTO>>() { tempSelction, new MultiSelectItem<OrgRoleDTO>() { IsButton = true } }); ;
+                }
+                else
+                {
+                    ms.SetValue(SelectionListProperty, new ObservableCollection<MultiSelectItem<OrgRoleDTO>>() { tempSelction }); ;
                 }
                 
             }

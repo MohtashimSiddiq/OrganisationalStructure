@@ -25,7 +25,8 @@
 	
 	<SolidColorBrush x:Key="brush_tabSelected">#144d87</SolidColorBrush>
 	<SolidColorBrush x:Key="brush_tabUnselected">#6ebbeb</SolidColorBrush>
-	
+	<SolidColorBrush x:Key="brush_treeViewItemBackground">#0064a7</SolidColorBrush>
+	<SolidColorBrush x:Key="brush_treeViewItemForeground">White</SolidColorBrush>
 	<BitmapImage x:Key="imgSettings" UriSource="/Resources/Images/Light/settings.png" ></BitmapImage>
 	<BitmapImage x:Key="imgRoles" UriSource="/Resources/Images/Light/roles.png" ></BitmapImage>
 	<BitmapImage x:Key="imgGrid" UriSource="/Resources/Images/Light/grid.png" ></BitmapImage>

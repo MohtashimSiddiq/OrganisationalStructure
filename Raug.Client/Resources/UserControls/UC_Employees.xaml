@@ -68,7 +68,7 @@
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"  IsReadOnly="True"></DataGridTextColumn>
 							<DataGridTextColumn Header="Role" Binding="{Binding EmployeeRole.Name}" Width="*" IsReadOnly="True"></DataGridTextColumn>
-							<DataGridTextColumn Header="Manager" Binding="{Binding Manager.Name}" Width="*" IsReadOnly="True"></DataGridTextColumn>
+							<DataGridTextColumn Header="Manager" Binding="{Binding Manager.Name, Converter={StaticResource ManagerToStaticStringConverter}}" Width="*" IsReadOnly="True"></DataGridTextColumn>
 							<DataGridTextColumn Header="Manager Role" Binding="{Binding Manager.EmployeeRole.Name}" Width="*" IsReadOnly="True"></DataGridTextColumn>
 							<DataGridTemplateColumn Header="Actions" Width="0.5*">
 								<DataGridTemplateColumn.CellTemplate>

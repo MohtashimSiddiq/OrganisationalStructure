@@ -30,6 +30,8 @@
 	<system:String x:Key="txtBtnYes">Ja</system:String>
 	<system:String x:Key="txtBtnNo">Nein</system:String>
 	<system:String x:Key="txtHome">Zuhause</system:String>
+	<system:String x:Key="txtVacantPosition">Freie Stelle</system:String>
+	
 
 	<!--- Message Box strings -->
 	<system:String x:Key="txtMsgTitleSuccess">Erfolg</system:String>
@@ -57,6 +59,11 @@
 	
 	<system:String x:Key="txtMsgTextEmpDelError">Mitarbeiter kann nicht gelöscht werden</system:String>
 	<system:String x:Key="txtMsgTextRoleDelError">Rolle kann nicht gelöscht werden</system:String>
+
+	<system:String x:Key="txtMsgTextRoleDelErrorEmployeeExists">Rolle kann nicht gelöscht werden. In dieser Rolle existiert ein Mitarbeiter.</system:String>
+	<system:String x:Key="txtMsgTextRoleDelErrorSubOrdinatesExists">Rolle kann nicht gelöscht werden. Mitarbeiter existieren unter dieser Rolle.</system:String>
+	<system:String x:Key="txtMsgTextParentRoleModifiedToSelf">Die übergeordnete Rolle kann nicht von sich selbst sein</system:String>
+	<system:String x:Key="txtMsgTextRoleEditConfirm">Das Bearbeiten der Rolle kann die Organisationsstruktur ändern! &#10; Möchten Sie fortfahren?</system:String>
 
 	<!--Fonts-->
 	<system:Double x:Key="fnt_AppName">16</system:Double>

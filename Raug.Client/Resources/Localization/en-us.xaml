@@ -30,6 +30,7 @@
 	<system:String x:Key="txtBtnYes">Yes</system:String>
 	<system:String x:Key="txtBtnNo">No</system:String>
 	<system:String x:Key="txtHome">Home</system:String>
+	<system:String x:Key="txtVacantPosition">Vacant position</system:String>
 	
 	<!--- Message Box strings -->
 	<system:String x:Key="txtMsgTitleSuccess">Success</system:String>

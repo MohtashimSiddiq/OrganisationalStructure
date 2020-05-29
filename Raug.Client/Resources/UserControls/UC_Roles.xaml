@@ -114,12 +114,13 @@
 					</TabItem>
 				<TabItem Header="{DynamicResource imgTree}">
 					<TreeView Grid.Row="1"  ItemsSource="{Binding TreeData}" Selector.IsSelected="False" 
-								  BorderThickness="0" 
-								  Background="Transparent">
-							<TreeView.ItemTemplate>
+								  BorderThickness="0"  
+								  Background="Transparent" >
+						
+					<TreeView.ItemTemplate>
 								<HierarchicalDataTemplate ItemsSource="{Binding ChildRoles}">
-								<Border Background="{DynamicResource brush_Secondary}" Margin="0,2,0,0" Padding="4,2,8,2"
-												BorderBrush="DimGray" BorderThickness="1" >
+								<Border Background="{DynamicResource brush_treeViewItemBackground}" Margin="2" Padding="0"
+												 BorderThickness="0" CornerRadius="4" MinWidth="100" >
 										<Grid>
 											<Grid.RowDefinitions>
 												<RowDefinition/>
@@ -131,9 +132,9 @@
 											</Grid.ColumnDefinitions>
 
 											<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold"
-                               Text="{Binding Name}"/>
+                               Text="{Binding Name}" Foreground="White" Margin="5 10 5 0"/>
 											<TextBlock Grid.Row="1" Grid.Column="0" FontStyle="Italic"
-                               Text="{Binding Description}" Margin="5,0,0,0"/>
+                               Text="{Binding Description}" Foreground="White" Margin="10,5,10,10"/>
 
 										</Grid>
 									</Border>

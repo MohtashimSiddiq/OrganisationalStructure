@@ -68,8 +68,18 @@ namespace Ruag.Client.ViewModel
 
         private void FetchData()
         {
+
             AllEmployees = new ObservableCollection<EmployeeDTO>(GetAllActiveEmployees());
             AllRoles = new ObservableCollection<OrgRoleDTO>(GetAllRoles());
+            AllEmployees.All(e => { if (e.Manager == null)
+                    e.Manager = new EmployeeDTO()
+                    {
+                        EmployeeRole = AllRoles.Where(r => r.Id == e.EmployeeRole.Id).Select(pr => pr.ParentRole).FirstOrDefault(),
+                        Name = "",
+                    };
+                    return true;
+                   });
+            
             RaisePropertyChanged("AllEmployees");
             RaisePropertyChanged("AllRoles");
             ConstructTree();

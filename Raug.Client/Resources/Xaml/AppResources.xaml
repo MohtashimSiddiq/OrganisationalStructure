@@ -56,8 +56,8 @@
 	<!--Converters-->
 	<converters:StringToUriConverter x:Key="StringToUriConverter" />
 	<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
-
+	<converters:BoolToVisibilityMultiConverter x:Key="BoolToVisibilityMultiConverter" />
+	<converters:ManagerToStaticStringConverter x:Key="ManagerToStaticStringConverter"/>
 	<!--MultiSelect Combo box-->
 
 	<ControlTemplate TargetType="ToggleButton" x:Key="ComboBoxToggleButtonTemplate">
@@ -239,7 +239,15 @@
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 			</ComboBox>
-			<Image Source="{DynamicResource imgRoleSeperator}" Visibility="{Binding CurrentItem.IsButton, Converter={StaticResource BoolToVisibilityConverter}}" Height="24" Width="24"/>
+			<Image Source="{DynamicResource imgRoleSeperator}"  Height="24" Width="24">
+				<Image.Visibility>
+					<MultiBinding Converter="{StaticResource BoolToVisibilityMultiConverter}">
+						<Binding Path="CurrentItem.IsButton"/>
+						<Binding Path="CurrentItem.ShowSeperator" />
+						
+					</MultiBinding>
+				</Image.Visibility>
+			</Image>
 		</StackPanel>
 	</DataTemplate>
 
